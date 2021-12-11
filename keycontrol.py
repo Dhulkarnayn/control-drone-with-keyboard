@@ -4,7 +4,7 @@
 # Author:  Saiffullah Sabir Mohamed
 # Github:  https://github.com/TechnicalVillager
 # Website: http://technicalvillager.github.io/
-# Source: https://github.com/TechnicalVillager/control-drone-with-keyboard
+# Source: https://github.com/TechnicalVillager/control-drone-with-keyboard/
 #...........................................................................
 
 # Import Necessary Packages
