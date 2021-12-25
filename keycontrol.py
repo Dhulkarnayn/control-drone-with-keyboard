@@ -11,7 +11,6 @@
 from dronekit import connect, VehicleMode, LocationGlobalRelative
 import time, math
 from sshkeyboard import listen_keyboard
-from pymavlink import mavutil
 
 def basic_takeoff(altitude):
 
