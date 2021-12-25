@@ -141,35 +141,6 @@ def destination_location(homeLattitude, homeLongitude, distance, bearing):
 
     return location
 
-def condition_yaw(heading):
-
-    """
-    
-    This function helps the vehicle to maintain its
-    heading thorught the flight (Heading Lock).
-
-    Inputs:
-        1.  heading         -   Desired heading value in Degrees
-
-    """
-
-    #yaw is an absolute angle
-    is_relative=0 
-
-    # create the CONDITION_YAW command using command_long_encode()
-    msg = vehicle.message_factory.command_long_encode(
-        0, 0,    # target system, target component
-        mavutil.mavlink.MAV_CMD_CONDITION_YAW, #command
-        0,              #confirmation
-        heading,        # param 1, yaw in degrees
-        0,              # param 2, yaw speed deg/s
-        1,              # param 3, direction -1 ccw, 1 cw
-        is_relative,    # param 4, relative offset 1, absolute angle 0
-        0, 0, 0)        # param 5 ~ 7 not used
-
-    # send command to vehicle
-    vehicle.send_mavlink(msg)
-
 def control(value):
 
     """
@@ -287,8 +258,10 @@ def main():
     # Connecting the Vehicle
     vehicle = connect('udpin:127.0.0.1:14551', baud=115200)
 
-    # Conditional Yaw (Setting the Heading as 0 degree for entire flight)
-    condition_yaw(heading=0)
+    # Setting the Heading angle constant throughout flight
+    if vehicle.parameters['WP_YAW_BEHAVIOR'] != 0:
+        vehicle.parameters['WP_YAW_BEHAVIOR'] = 0
+        print("Changed the Vehicle's WP_YAW_BEHAVIOR parameter")
 
     # Listen Keyboard Keys
     listen_keyboard(on_press=press)
